@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.easylearnjava.exception.DaoException;
+import com.easylearnjava.util.Constants;
+
 public class LoginDao {
 	
 	String driver;
@@ -36,8 +39,9 @@ public class LoginDao {
 				passwordFromDB = res.getString("USER_PASSWORD");
 			}
 			conn.close(); //close the database connection
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new DaoException(Constants.GLOBAL_EXCEPTION_MESSAGE);
 		}
 		return passwordFromDB;
 	}
@@ -51,8 +55,8 @@ public class LoginDao {
 			conn = DriverManager.getConnection(url, userName, password);
 			//give back the database connection object to the caller
 			return conn;
-		} catch (Exception e) {
-			throw new SQLException(e.getMessage());
+		} catch (Exception ex) {
+			throw new SQLException(ex.getMessage());
 		}
 	}
 

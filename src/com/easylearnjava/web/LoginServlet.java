@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.easylearnjava.exception.ServiceException;
 import com.easylearnjava.service.LoginService;
+import com.easylearnjava.util.Constants;
 
 /**
  * 
@@ -58,8 +60,11 @@ public class LoginServlet extends HttpServlet{
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 				
 			}
-		}catch(Exception e){
-			request.setAttribute("errMsg", e.getMessage());
+		}catch(Exception ex){
+			if(!(ex instanceof ServiceException)){
+				ex.printStackTrace();
+			}
+			request.setAttribute("errMsg", Constants.GLOBAL_EXCEPTION_MESSAGE);
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 	}

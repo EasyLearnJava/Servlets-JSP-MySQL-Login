@@ -5,6 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Servlet JSP Login</title>
+
+<script type="text/javascript">
+	function validateData() {
+		var userNameValue = document.getElementById('userid').value.trim();
+		if (userNameValue == "") {
+			alert('please enter username');
+			document.getElementById('userid').focus();
+			return false;
+		}
+		var passwordField = document.getElementById('password').value.trim();
+		if (passwordField == "") {
+			alert('please enter password');
+			document.getElementById('password').focus();
+			return false;
+		}
+	}
+</script>
+
 </head>
 <body>
 	<h2 align="center">Login functionality implemented using Servlet,
@@ -12,15 +30,18 @@
 	<form action="login" method="post">
 		<table align="center">
 			<tr>
-				<td >username :</td>
-				<td ><input type="text" name="usernameTB"></td>
+				<td class="right">username :</td>
+				<td class="left"><input type="text" name="usernameTB"
+					id="userid"></td>
 			</tr>
 			<tr>
-				<td >password :</td>
-				<td ><input type="password" name="passwordTB"><br></td>
+				<td class="right">password :</td>
+				<td class="left"><input type="password" name="passwordTB"
+					id="password"><br></td>
 			</tr>
 			<tr>
-				<td ><input type="submit" value="login"></td>
+				<td class="right"><input type="submit" value="login"
+					onclick="return validateData();"></td>
 				<td style="color: red">
 					<%
 						String errorMessage = (String) request.getAttribute("errMsg");
