@@ -45,7 +45,8 @@ public class LoginServlet extends HttpServlet{
 			//inputdata validation
 			boolean isDataValid = isValidData(userNameStr, passwordStr);
 			if(!isDataValid){
-				response.sendRedirect("login.jsp");
+				request.setAttribute("errMsg", "username/password cannot be empty, must contain atleast 5 characters each");
+				request.getRequestDispatcher("/login.jsp").forward(request, response);
 				return;
 			}
 			
